@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instituto Barros — Medicina e Estética Avançada</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--black:#070707;--dark:#0e0e0e;--card:#141414;--green-deep:#1a4a28;--green:#2d7a3a;--green-vivid:#4db85a;--green-light:#6fd67c;--white:#f5f5f0;--muted:#888;--border:rgba(77,184,90,0.15)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.6;overflow-x:hidden;cursor:none}
+.cursor{position:fixed;width:10px;height:10px;background:var(--green-vivid);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:exclusion;transition:width .3s,height .3s}
+.cursor-ring{position:fixed;width:38px;height:38px;border:1px solid rgba(77,184,90,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(7,7,7,.97),transparent);backdrop-filter:blur(4px)}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-logo img{width:44px;height:44px;object-fit:contain;border-radius:50%}
+.nb1{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:var(--white);line-height:1;display:block}
+.nb2{font-size:9px;letter-spacing:2.5px;color:var(--green-vivid);text-transform:uppercase;display:block}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:11px;letter-spacing:2px;text-transform:uppercase;transition:color .3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--green-vivid);transition:width .3s}
+.nav-links a:hover{color:var(--white)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:transparent;border:1px solid var(--green-vivid);color:var(--green-vivid);padding:10px 26px;font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:none;transition:all .3s;text-decoration:none}
+.nav-cta:hover{background:var(--green-vivid);color:var(--black)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:120px 60px 80px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 65% 50%,rgba(26,74,40,.4) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(77,184,90,.07) 0%,transparent 60%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(77,184,90,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(77,184,90,.04) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse at center,black 40%,transparent 80%)}
+.hero-content{position:relative;z-index:2;max-width:820px}
+.hero-eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:28px;opacity:0;animation:fadeUp .8s .2s forwards}
+.eyebrow-line{width:48px;height:1px;background:var(--green-vivid)}
+.hero-eyebrow span{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--green-vivid)}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(70px,10vw,136px);line-height:.9;letter-spacing:2px;margin-bottom:6px;opacity:0;animation:fadeUp .8s .4s forwards}
+.hero-title .accent{color:var(--green-vivid);font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:.75em;letter-spacing:0}
+.hero-subtitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,6vw,76px);line-height:.9;letter-spacing:2px;-webkit-text-stroke:1px var(--green);color:transparent;margin-bottom:36px;opacity:0;animation:fadeUp .8s .5s forwards}
+.hero-desc{font-size:16px;color:rgba(245,245,240,.6);max-width:480px;line-height:1.85;margin-bottom:52px;font-weight:300;opacity:0;animation:fadeUp .8s .6s forwards}
+.hero-actions{display:flex;gap:20px;align-items:center;opacity:0;animation:fadeUp .8s .8s forwards}
+.btn-primary{background:var(--green-vivid);color:var(--black);padding:16px 40px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;text-decoration:none;display:inline-block;transition:background .3s}
+.btn-primary:hover{background:var(--green-light)}
+.btn-ghost{color:var(--muted);font-size:12px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:10px;transition:color .3s}
+.btn-ghost::before{content:'';width:30px;height:1px;background:var(--muted);transition:width .3s,background .3s}
+.btn-ghost:hover{color:var(--white)}
+.btn-ghost:hover::before{width:50px;background:var(--white)}
+.hero-deco{position:absolute;right:0;top:0;bottom:0;width:44%;background:linear-gradient(135deg,var(--green-deep) 0%,#0a2015 50%,var(--black) 100%);clip-path:polygon(16% 0%,100% 0%,100% 100%,0% 100%);overflow:hidden}
+.hero-deco::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(77,184,90,.05) 0px,rgba(77,184,90,.05) 1px,transparent 1px,transparent 40px)}
+.hero-stats{position:absolute;bottom:52px;right:80px;display:flex;gap:56px;opacity:0;animation:fadeUp .8s 1s forwards}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:50px;color:var(--green-vivid);line-height:1}
+.stat-lbl{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+/* SECTIONS */
+.section{padding:130px 60px}
+.section-dark{background:var(--dark)}
+.section-dark::before,.section::before{content:'';display:block;height:1px;background:linear-gradient(to right,transparent,var(--green-vivid),transparent);margin-bottom:0;position:absolute;top:0;left:0;right:0}
+.section,.section-dark{position:relative}
+.section-label{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.sl-line{width:38px;height:1px;background:var(--green-vivid)}
+.section-label span{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--green-vivid)}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,5.5vw,76px);line-height:.95;letter-spacing:2px;margin-bottom:28px}
+.section-title .italic{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:.9em;color:var(--green-vivid)}
+
+/* ABOUT */
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-text{font-size:14px;color:rgba(245,245,240,.6);line-height:1.9;margin-bottom:20px}
+.mvv-item{display:flex;gap:20px;padding:22px 0;border-bottom:1px solid var(--border);align-items:flex-start;transition:padding-left .3s}
+.mvv-item:hover{padding-left:6px}
+.mvv-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:rgba(77,184,90,.18);line-height:1;min-width:36px}
+.mvv-item h4{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--green-vivid);margin-bottom:4px}
+.mvv-item p{font-size:12px;color:rgba(245,245,240,.5);line-height:1.7}
+.quote-card{background:var(--card);border:1px solid var(--border);padding:46px;position:relative;overflow:hidden}
+.quote-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(to bottom,var(--green-vivid),transparent)}
+.quote-mark{font-size:72px;color:var(--green-vivid);line-height:0;display:block;margin-bottom:18px;font-family:'Cormorant Garamond',serif}
+.quote-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;font-weight:300;line-height:1.65;color:var(--white);margin-bottom:28px}
+.sig{display:flex;align-items:center;gap:14px}
+.sig-av{width:44px;height:44px;background:var(--green-deep);border-radius:50%;border:2px solid var(--green-vivid);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--green-vivid)}
+.sig-name{display:block;font-size:14px;font-weight:500;color:var(--white)}
+.sig-role{font-size:10px;letter-spacing:1.5px;color:var(--green-vivid);text-transform:uppercase}
+
+/* SERVICES */
+.services-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.svc-card{background:var(--card);padding:40px 32px;position:relative;overflow:hidden;transition:all .4s;border:1px solid transparent}
+.svc-card:hover{border-color:var(--green-vivid);transform:translateY(-3px)}
+.svc-card::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:var(--green-vivid);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.svc-card:hover::after{transform:scaleX(1)}
+.svc-icon{width:46px;height:46px;border:1px solid var(--green-vivid);display:flex;align-items:center;justify-content:center;margin-bottom:24px}
+.svc-icon svg{width:20px;height:20px;stroke:var(--green-vivid);fill:none;stroke-width:1.5}
+.svc-n{position:absolute;top:16px;right:20px;font-family:'Bebas Neue',sans-serif;font-size:56px;color:rgba(77,184,90,.05);line-height:1}
+.svc-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;margin-bottom:12px;transition:color .3s}
+.svc-card:hover .svc-title{color:var(--green-vivid)}
+.svc-desc{font-size:12px;color:rgba(245,245,240,.5);line-height:1.8}
+.svc-tag{display:inline-block;margin-top:18px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--green-vivid);border:1px solid rgba(77,184,90,.3);padding:3px 10px}
+
+/* VALUES */
+.values-head{text-align:center;margin-bottom:64px}
+.values-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;max-width:860px;margin:0 auto}
+.val-card{background:var(--card);padding:44px 40px;border:1px solid transparent;transition:border-color .3s;position:relative;overflow:hidden}
+.val-card:hover{border-color:var(--border)}
+.val-card:nth-child(odd){background:rgba(26,74,40,.18)}
+.val-n{font-family:'Bebas Neue',sans-serif;font-size:90px;color:rgba(77,184,90,.05);position:absolute;bottom:-16px;right:16px;line-height:1}
+.val-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--green-vivid);margin-bottom:10px}
+.val-desc{font-size:12px;color:rgba(245,245,240,.5);line-height:1.8;position:relative;z-index:1}
+
+/* CTA */
+.cta-section{background:var(--black);padding:160px 60px;text-align:center;position:relative;overflow:hidden}
+.cta-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(26,74,40,.4) 0%,transparent 70%)}
+.cta-ring{position:absolute;border:1px solid rgba(77,184,90,.08);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);animation:ring-pulse 3s infinite}
+.cta-ring:nth-child(2){width:400px;height:400px}
+.cta-ring:nth-child(3){width:620px;height:620px;animation-delay:.5s}
+.cta-ring:nth-child(4){width:820px;height:820px;animation-delay:1s}
+.cta-cnt{position:relative;z-index:2}
+.cta-lbl{display:inline-flex;align-items:center;gap:14px;margin-bottom:28px}
+.cta-lbl-line{width:38px;height:1px;background:var(--green-vivid)}
+.cta-lbl span{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--green-vivid)}
+.cta-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(58px,8vw,106px);line-height:.9;letter-spacing:2px;margin-bottom:28px}
+.cta-title .accent{color:var(--green-vivid)}
+.cta-sub{font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;font-weight:300;color:rgba(245,245,240,.5);margin-bottom:52px}
+.cta-btns{display:flex;gap:18px;justify-content:center;align-items:center}
+.btn-wa{background:var(--green-vivid);color:var(--black);padding:16px 44px;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:background .3s}
+.btn-wa:hover{background:var(--green-light)}
+.btn-ig{border:1px solid rgba(245,245,240,.2);color:var(--muted);padding:16px 44px;font-size:12px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .3s}
+.btn-ig:hover{border-color:var(--white);color:var(--white)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:56px 60px 36px;background:var(--black)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;margin-bottom:52px}
+.footer-brand p{font-size:12px;color:rgba(245,245,240,.4);line-height:1.8;margin-top:18px;max-width:280px}
+.footer-col h4{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--green-vivid);margin-bottom:20px}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:10px}
+.footer-col ul li a{color:rgba(245,245,240,.4);text-decoration:none;font-size:12px;transition:color .3s}
+.footer-col ul li a:hover{color:var(--white)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:26px;border-top:1px solid rgba(77,184,90,.07)}
+.footer-copy{font-size:10px;color:rgba(245,245,240,.22);letter-spacing:1px}
+.footer-social{display:flex;gap:12px}
+.soc-btn{width:34px;height:34px;border:1px solid rgba(77,184,90,.2);display:flex;align-items:center;justify-content:center;transition:border-color .3s,background .3s;text-decoration:none}
+.soc-btn:hover{border-color:var(--green-vivid);background:rgba(77,184,90,.1)}
+.soc-btn svg{width:13px;height:13px;stroke:var(--muted);fill:none;stroke-width:1.5}
+.soc-btn:hover svg{stroke:var(--green-vivid)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ring-pulse{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:.15;transform:translate(-50%,-50%) scale(1.02)}}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .8s,transform .8s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:768px){
+  nav{padding:16px 20px}.nav-links{display:none}
+  .hero{padding:110px 20px 60px}.hero-deco{display:none}.hero-stats{position:static;margin-top:40px;gap:32px}
+  .section,.section-dark{padding:80px 20px}
+  .about-inner{grid-template-columns:1fr;gap:40px}
+  .services-header{flex-direction:column;align-items:flex-start;gap:16px}
+  .services-grid{grid-template-columns:1fr}
+  .values-grid{grid-template-columns:1fr}
+  .cta-section{padding:100px 20px}.cta-btns{flex-direction:column}
+  footer{padding:48px 20px 30px}.footer-grid{grid-template-columns:1fr;gap:32px}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="data:image/jpeg;base64,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" alt="Instituto Barros">
+    <div><span class="nb1">Instituto Barros</span><span class="nb2">Medicina e Estética Avançada</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#valores">Valores</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <a href="https://wa.me/55" class="nav-cta">Agendar Consulta</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><div class="eyebrow-line"></div><span>Petrolina — PE · Medicina Avançada</span></div>
+    <h1 class="hero-title">TRANSFORME<br><span class="accent">sua vida</span></h1>
+    <p class="hero-subtitle">COM EXCELÊNCIA</p>
+    <p class="hero-desc">Medicina e estética avançada com foco na individualidade de cada paciente. Resultados que impactam a autoestima e a qualidade de vida de verdade.</p>
+    <div class="hero-actions">
+      <a href="https://wa.me/55" class="btn-primary">Agendar Consulta</a>
+      <a href="#sobre" class="btn-ghost">Conheça o Instituto</a>
+    </div>
+  </div>
+  <div class="hero-deco"></div>
+  <div class="hero-stats">
+    <div><div class="stat-num">+500</div><div class="stat-lbl">Pacientes</div></div>
+    <div><div class="stat-num">100%</div><div class="stat-lbl">Dedicação</div></div>
+    <div><div class="stat-num">1°</div><div class="stat-lbl">Referência</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section-dark" id="sobre">
+  <div class="about-inner">
+    <div class="reveal">
+      <div class="section-label"><div class="sl-line"></div><span>Sobre o Instituto</span></div>
+      <h2 class="section-title">CUIDADO<br><span class="italic">que transforma</span><br>VIDAS</h2>
+      <p class="about-text">O Instituto Barros nasceu do compromisso de transformar vidas por meio da saúde, estética e bem-estar. Idealizado pelo Dr. Tássyo Barros com o propósito de oferecer tratamentos de excelência focados na individualidade de cada paciente.</p>
+      <div>
+        <div class="mvv-item"><div class="mvv-num">01</div><div><h4>Missão</h4><p>Oferecer tratamentos especializados que promovam o emagrecimento saudável e a melhoria da qualidade de vida com abordagens científicas.</p></div></div>
+        <div class="mvv-item"><div class="mvv-num">02</div><div><h4>Visão</h4><p>Ser reconhecido como líder nacional em tratamentos para emagrecimento e terapias hormonais na medicina estética.</p></div></div>
+        <div class="mvv-item"><div class="mvv-num">03</div><div><h4>Propósito</h4><p>Superar expectativas e promover a saúde de forma acessível e humanizada com impacto real na vida das pessoas.</p></div></div>
+      </div>
+    </div>
+    <div class="quote-card reveal">
+      <span class="quote-mark">"</span>
+      <p class="quote-text">Não há limite para o que podemos conquistar quando trabalhamos com propósito e confiança.</p>
+      <div class="sig">
+        <div class="sig-av">TB</div>
+        <div><span class="sig-name">Dr. Tássyo Barros</span><span class="sig-role">CEO — Instituto Barros</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="servicos">
+  <div class="services-header reveal">
+    <div>
+      <div class="section-label"><div class="sl-line"></div><span>Nossos Serviços</span></div>
+      <h2 class="section-title">O QUE <span class="italic">oferecemos</span></h2>
+    </div>
+    <a href="https://wa.me/55" class="btn-ghost">Ver todos os serviços</a>
+  </div>
+  <div class="services-grid">
+    <div class="svc-card reveal"><div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5"/></svg></div><span class="svc-n">01</span><h3 class="svc-title">Emagrecimento Avançado</h3><p class="svc-desc">Programas especializados e científicos para emagrecimento saudável e sustentável com acompanhamento individualizado.</p><span class="svc-tag">Medicina</span></div>
+    <div class="svc-card reveal"><div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5m4.75-11.396c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3"/></svg></div><span class="svc-n">02</span><h3 class="svc-title">Terapia Hormonal</h3><p class="svc-desc">Diagnóstico e tratamento de desequilíbrios hormonais com abordagem moderna, segura e baseada em evidências.</p><span class="svc-tag">Endocrinologia</span></div>
+    <div class="svc-card reveal"><div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg></div><span class="svc-n">03</span><h3 class="svc-title">Estética Avançada</h3><p class="svc-desc">Procedimentos estéticos de alta tecnologia para realçar sua beleza natural com segurança e resultados duradouros.</p><span class="svc-tag">Estética</span></div>
+    <div class="svc-card reveal"><div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg></div><span class="svc-n">04</span><h3 class="svc-title">Saúde & Bem-Estar</h3><p class="svc-desc">Cuidado integral unindo saúde, autoestima e qualidade de vida em programas completos desenhados para você.</p><span class="svc-tag">Wellness</span></div>
+    <div class="svc-card reveal"><div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg></div><span class="svc-n">05</span><h3 class="svc-title">Consulta Personalizada</h3><p class="svc-desc">Atendimento individualizado com o Dr. Tássyo Barros para diagnóstico preciso e plano de tratamento exclusivo.</p><span class="svc-tag">Consulta</span></div>
+    <div class="svc-card reveal"><div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><span class="svc-n">06</span><h3 class="svc-title">Acompanhamento Contínuo</h3><p class="svc-desc">Suporte e monitoramento ao longo de todo o tratamento para garantir resultados sustentáveis e sua satisfação.</p><span class="svc-tag">Follow-up</span></div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="section-dark" id="valores">
+  <div class="values-head reveal">
+    <div class="section-label" style="justify-content:center"><div class="sl-line"></div><span>Nossos Valores</span><div class="sl-line"></div></div>
+    <h2 class="section-title" style="margin-top:14px;text-align:center">O QUE NOS <span class="italic">move</span></h2>
+  </div>
+  <div class="values-grid">
+    <div class="val-card reveal"><div class="val-n">01</div><h3 class="val-title">Comprometimento</h3><p class="val-desc">Trabalhamos com dedicação e zelo, promovendo um ambiente saudável, empático e equilibrado para cada paciente.</p></div>
+    <div class="val-card reveal"><div class="val-n">02</div><h3 class="val-title">Inovação Contínua</h3><p class="val-desc">Em constante movimento, buscamos o novo, otimizando processos e incorporando os mais recentes avanços científicos.</p></div>
+    <div class="val-card reveal"><div class="val-n">03</div><h3 class="val-title">Integridade & Ética</h3><p class="val-desc">Agimos com transparência, responsabilidade e respeito, sempre alinhados com nossos princípios e valores.</p></div>
+    <div class="val-card reveal"><div class="val-n">04</div><h3 class="val-title">Humanização</h3><p class="val-desc">Cuidamos de pessoas como gostaríamos de ser cuidados: com atenção, escuta ativa e consideração genuína.</p></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contato">
+  <div class="cta-bg"></div>
+  <div class="cta-ring"></div><div class="cta-ring"></div><div class="cta-ring"></div>
+  <div class="cta-cnt reveal">
+    <div class="cta-lbl"><div class="cta-lbl-line"></div><span>Comece sua transformação</span><div class="cta-lbl-line"></div></div>
+    <h2 class="cta-title">AGENDE SUA<br><span class="accent">CONSULTA</span></h2>
+    <p class="cta-sub">O cuidado se prova no fazer.</p>
+    <div class="cta-btns">
+      <a href="https://wa.me/55" class="btn-wa">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Falar no WhatsApp
+      </a>
+      <a href="https://www.instagram.com/institutobarros.petrolina/" target="_blank" class="btn-ig">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        Ver Instagram
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:12px">
+        <img src="data:image/jpeg;base64,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" alt="Logo" style="width:38px;height:38px;object-fit:contain;border-radius:50%">
+        <div><span class="nb1">Instituto Barros</span><span class="nb2">Medicina e Estética Avançada</span></div>
+      </div>
+      <p>Transformando vidas por meio da saúde, estética e bem-estar com excelência, ética e humanização em Petrolina — PE.</p>
+    </div>
+    <div class="footer-col"><h4>Serviços</h4><ul><li><a href="#">Emagrecimento</a></li><li><a href="#">Terapia Hormonal</a></li><li><a href="#">Estética Avançada</a></li><li><a href="#">Saúde & Bem-Estar</a></li></ul></div>
+    <div class="footer-col"><h4>Instituto</h4><ul><li><a href="#sobre">Sobre nós</a></li><li><a href="#valores">Valores</a></li><li><a href="#">Dr. Tássyo Barros</a></li><li><a href="#">Equipe</a></li></ul></div>
+    <div class="footer-col"><h4>Contato</h4><ul><li><a href="https://wa.me/55">WhatsApp</a></li><li><a href="https://www.instagram.com/institutobarros.petrolina/" target="_blank">Instagram</a></li><li><a href="#">Petrolina — PE</a></li><li><a href="#">Agendar Consulta</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Instituto Barros. Medicina e Estética Avançada. Petrolina — PE.</p>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/institutobarros.petrolina/" target="_blank" class="soc-btn"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg></a>
+      <a href="https://wa.me/55" class="soc-btn"><svg viewBox="0 0 24 24"><path d="M3 3l1.5 4.5-1 2 2 4 2.5 1.5 3-1.5 4 2 1.5 1.5v-5l-2-3-2.5-1-1.5-3L16 3H3z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function animR(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animR)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='56px';ring.style.height='56px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';ring.style.width='38px';ring.style.height='38px'});
+});
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);obs.unobserve(e.target)}});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})});
+});
+</script>
+</body>
+</html>
